@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html ng-app="APP">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+    <!-- ================FONTS================ -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:500,100,300' rel='stylesheet' type='text/css'>
+
+    <!-- ================BOOTSTRAP================ -->
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+
+    <!-- ================ICONS================ -->
+    <link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css">
+
+    <!-- ================CALENDAR================ -->
+    <link rel="stylesheet" type="text/css" href="bower_components/fullcalendar/dist/fullcalendar.css">
+
+    <!-- ================ANIMATIONS================ -->
+    <link rel="stylesheet" type="text/css" href="styles/animate.css">
+
+    <!-- ================CUSTOM STYLES================ -->
+    <link rel="stylesheet" type="text/css" href="styles/core.css">
+
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <title>DEMO: Absenteeism 2</title>
+
+</head>
+
+<body ng-controller="mainController">
+
+
+    <div class="widget animated fadeIn navigation">
+        <div class="widget-body">
+            <div class="row">
+                <div class="col-md-1 col-md-offset-1">
+                    <h2> Mudano </h2>
+                </div>
+                <div class="col-md-1 ">
+                    <p class="nav-link"> Calendar </p>
+                </div>
+                <div class="col-md-1">
+                    <p class="nav-link"> Filters </p>
+                </div>
+                <div class="col-md-3 col-md-offset-4">
+                    <select ng-model="selectedUser" class="form-control login" ng-model="correctlySelected" ng-options="opt as opt.name for opt in users">
+                    </select>
+                </div>
+                <div class="col-md-1">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <br>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div ng-hide="!selectedUser">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="widget animated slideInUp">
+                                            <div class="widget-header">
+                                                <p> Filter viewed units & values </p>
+                                            </div>
+                                            <div class="widget-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <label class="color-value-V">Vacation (V)</label>
+                                                        <input ng-model="filter.value.V" type="checkbox" name="vehicle">
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <label class="color-value-P">Public Holiday (P)</label>
+                                                        <input ng-model="filter.value.P" type="checkbox" name="vehicle">
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <label class="color-value-T">Training (T)</label>
+                                                        <input ng-model="filter.value.T" type="checkbox" name="vehicle">
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <label>AM</label>
+                                                        <input ng-model="filter.unit.AM" type="checkbox" name="vehicle">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>PM</label>
+                                                        <input ng-model="filter.unit.PM" type="checkbox" name="vehicle">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="widget scroll-large animated slideInUp">
+                                            <div class="widget-header">
+                                                <p> Filter viewed users
+                                                    <span class="pull-right">&nbsp; Select all  </span>
+                                                    <input class="pull-right" ng-click="selectAllUsers()" ng-model="search.selectallusers" type="checkbox" name="vehicle">
+                                                </p>
+                                            </div>
+                                            <div class="widget-body">
+                                                <table class="table">
+                                                    <thead>
+                                                        <th>ID</th>
+                                                        <th>Name</th>
+                                                        <th>Show</th>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="user in users">
+                                                            <td>{{user.userid}}</td>
+                                                            <td>{{user.name}}</td>
+                                                            <td>
+                                                                <input ng-model="filter.user[user.name]" type="checkbox">
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div ng-hide="!selectedUser">
+                            <div class="widget  animated slideInUp">
+                                <div class="widget-header">
+                                    <p> Results ({{total_events}}) </p>
+                                </div>
+                                <div class="widget-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <select ng-model="search.add_event.value" class="form-control">
+                                                <option value="V"> Vacation (V) </option>
+                                                <option value="P"> Public Holiday (P) </option>
+                                                <option value="T"> T something (T) </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <select ng-model="search.add_event.unit" class="form-control">
+                                                <option value="AM"> AM </option>
+                                                <option value="PM"> PM </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <br>
+
+                                    <div ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar="myCalendar">
+                                    </div>
+                                    <!-- KEY FOR THE CALENDAR -->
+                                    <br>
+                                    <div class="row text-center">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p class="calendar-unit-AM"> AM </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="calendar-unit-PM"> PM </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div ng-hide="selectedUser">
+                    <div class="widget animated fadeIn">
+                        <div class="widget-body">
+                            <h3 class="text-center"> Please login to begin </h3>
+                            <div class="alert alert-info" role="alert">
+                                <h4>Adding</h4>
+                                <ol>
+                                    <li>Choose unit and value</li>
+                                    <li>Click calendar cell </li>
+                                    <li>Confirm</li>
+                                </ol>
+                                <h4>Deleting</h4>
+                                <p> Click dates in the calendar to remove bookings</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================JQUERY================ -->
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+        <!-- ================LODASH================ -->
+        <script src="bower_components/lodash/lodash.min.js"></script>
+
+        <!-- ================MOMENT================ -->
+        <script src="bower_components/moment/min/moment.min.js"></script>
+
+        <!-- ================ANGULAR CORE================ -->
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-route/angular-route.min.js"></script>
+
+        <!-- ================ANGULAR CUSTOM CORE================ -->
+        <script src="scripts/app.js"></script>
+
+        <!-- ================ANGULAR PLUGINS================ -->
+        <script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+        <script type="text/javascript" src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
+        <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+        <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+        <!-- ================CONTROLLERS================ -->
+        <script type="text/javascript" src="scripts/main.controller.js"></script>
+
+        <!-- ================SERVICES================ -->
+        <script type="text/javascript" src="scripts/bookings.service.js"></script>
+        <script type="text/javascript" src="scripts/database.service.js"></script>
+
+</body>
+
+</html>
