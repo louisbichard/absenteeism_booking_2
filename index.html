@@ -34,7 +34,7 @@
 
 
     <div class="widget animated fadeIn navigation">
-        <div class="widget-body">
+        <div class="widget-body no-padding">
             <div class="row">
                 <div class="col-md-1 col-md-offset-1">
                     <h2 class="text-primary"> Mudano </h2>
@@ -45,7 +45,7 @@
                 <div class="col-md-1">
                     <p class="nav-link"> <a href="#filters">Filters</a> </p>
                 </div>
-                <div class="col-md-3 col-md-offset-4">
+                <div class="col-md-3 col-md-offset-2">
                     <select ng-model="selectedUser" class="form-control login" ng-options="opt as opt.name for opt in users">
                     </select>
                 </div>
@@ -87,12 +87,11 @@
     <script type="text/javascript" src="scripts/main.controller.js"></script>
     <script type="text/javascript" src="scripts/filter.controller.js"></script>
     <script type="text/javascript" src="scripts/routes.js"></script>
-
+    <script type="text/javascript" src="scripts/filters.service.js"></script>
 
     <!-- ================SERVICES================ -->
     <script type="text/javascript" src="scripts/bookings.service.js"></script>
     <script type="text/javascript" src="scripts/database.service.js"></script>
-
 
 </body>
 

@@ -3,13 +3,24 @@
         <div class="widget animated fadeIn">
             <div class="widget-body">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <select class="form-control">
                             <option selected="selected" value="V"> My team </option>
                             <option value="P"> Everyone elses </option>
                             <option value="T"> All clashes </option>
                         </select>
+
                     </div>
+
+                    <div class="col-md-6">
+                        <select class="form-control">
+                            <option selected="selected" value="V"> Vacation </option>
+                            <option value="P"> Public Holiday </option>
+                            <option value="T"> T-something </option>
+                        </select>
+
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -21,19 +32,27 @@
         <div ng-hide="!selectedUser">
             <div class="widget  animated fadeIn">
                 <div class="widget-body scroll-large calendar">
-                    <table class="table">
+                    <table class="table unselectable">
                         <thead>
-                            <th class="text-center">Your bookings </th>
+                            <th>
+                                <p class="text-center">Date</p>
+                            </th>
+                            <th class="text-center">
+                                <p class="text-center"> Your bookings </p>
+                            </th>
                             <th ng-repeat="user in users">
-                                <p class="text-center">{{user.initials}}</p>
+                                <p tooltip="{{user.name}}" class="text-center">{{user.initials}}</p>
                             </th>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="date in demo_dates">
+                            <tr ng-repeat="date in demo_dates" ng-class="{endofweek: isMonday(date)}">
                                 <td class="text-center">{{date}}</td>
+                                <td class="date-cell date-user">
+                                    <span ng-repeat="unit in ['AM', 'PM']" ng-mouseOver="addBooking(  selectedUser.name, date, unit, this, $event )" ng-click="addBooking(  selectedUser.name, date, unit, this, $event )" ng-class="{ {{unit}}: getCellUser(selectedUser.name, bookings_by_date[date], unit)}" />
+                                </td>
                                 <td class="date-cell" ng-repeat="blah in users">
-<span ng-click="addBooking()" ng-class="{AM: getCellUser(users[$index].name, bookings_by_date[date], 'AM')}" />
-                                    <span ng-click="addBooking()" ng-class="{PM: getCellUser(users[$index].name, bookings_by_date[date], 'PM')}" />
+                                    <span ng-class="{AM: getCellUser(users[$index].name, bookings_by_date[date], 'AM')}" />
+                                    <span ng-class="{PM: getCellUser(users[$index].name, bookings_by_date[date], 'PM')}" />
                                 </td>
                             </tr>
                         </tbody>

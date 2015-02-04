@@ -37,20 +37,23 @@ APP.service("bookingService", function(databaseService) {
         }
     };
 
-    this.create = function(event) {
+    this.create = function(record) {
         // INTENTIONAL CONSOLE LOG AS PER REQUIREMENTS
-        console.log('EXAMPLE SERVER UPDATE REQUEST', '(CREATE)', event);
+        console.log('EXAMPLE SERVER UPDATE REQUEST', '(CREATE)', record);
 
-        databaseService.database.push(event);
+        databaseService.database.push(record);
     };
 
     this.delete = function(record) {
         // INTENTIONAL CONSOLE LOG AS PER REQUIREMENTS
-        console.log('EXAMPLE SERVER UPDATE REQUEST', '(DELETE)', event);
+        console.log('EXAMPLE SERVER UPDATE REQUEST', '(DELETE)', record);
 
         var index = _.findIndex(this.read.raw(), record);
 
-        databaseService.database.splice(index, 1);
+        console.log(index);
+
+        if (index !== -1) databaseService.database.splice(index, 1);
+
     };
 
 });

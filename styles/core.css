@@ -43,6 +43,8 @@ body {
     background-color: #B428FF; }
   .widget .widget-body {
     padding: 20px; }
+  .widget .widget-body.no-padding {
+    padding: 0px; }
 
 .widget.nav-selected {
   border-bottom-color: #FFCA28;
@@ -78,20 +80,33 @@ td.fc-widget-content {
 .calendar .table > tbody > tr > td, .calendar .table > tbody > tr > th, .calendar .table > tfoot > tr > td, .calendar .table > tfoot > tr > th, .calendar .table > thead > tr > td, .calendar .table > thead > tr > th {
   padding: 0px;
   border-right: 1px solid #ddd; }
+.calendar td.date-cell.date-user {
+  width: 150px; }
 .calendar td.date-cell {
-  width: 40px; }
+  width: 35px; }
 .calendar td > span {
   display: block;
-  height: 19px; }
-.calendar td > span.AM {
-  background-color: red; }
-.calendar td > span.PM {
-  background-color: blue; }
-.calendar td > span:hover {
+  height: 15px; }
+.calendar td > span.AM, .calendar td > span.PM {
+  background-color: lightblue; }
+.calendar td.date-user > span:hover {
   background-color: #FFCA28;
   opacity: 0.5; }
-.calendar td > span:hover {
-  background-color: #FFCA28;
-  opacity: 0.5; }
+.calendar td.date-user > span:active {
+  cursor: pointer; }
+.calendar tr.ng-scope.endofweek {
+  border-top-width: 2px;
+  border-top-style: solid; }
+
+*.unselectable {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+ /*
+  Introduced in IE 10.
+  See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+*/
+  -ms-user-select: none;
+  user-select: none; }
 
 /*# sourceMappingURL=core.css.map */

@@ -55,6 +55,9 @@ body {
     .widget-body {
         padding: 20px;
     }
+    .widget-body.no-padding {
+        padding: 0px;
+    }
 }
 .widget.nav-selected {
     border-bottom-color: $color-accent;
@@ -103,25 +106,40 @@ td.fc-widget-content {
         padding: 0px;
         border-right: 1px solid #ddd;
     }
+    td.date-cell.date-user {
+        width: 150px;
+    }
     td.date-cell {
-        width: 40px;
+        width: 35px;
     }
     td > span {
         display: block;
-        height: 19px;
+        height: 15px;
     }
-    td > span.AM {
-        background-color: red
+    td > span.AM, td > span.PM {
+        background-color: lightblue;
     }
-    td > span.PM {
-        background-color: blue
-    }
-    td > span:hover {
+    td.date-user > span:hover {
         background-color: $color-accent;
         opacity: 0.5;
     }
-    td > span:hover {
-        background-color: $color-accent;
-        opacity: 0.5;
+    td.date-user > span:active {
+        cursor: pointer;
     }
+    tr.ng-scope.endofweek {
+        border-top-width: 2px;
+        border-top-style: solid;
+    }
+}
+*.unselectable {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    /*
+     Introduced in IE 10.
+     See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+   */
+    
+    -ms-user-select: none;
+    user-select: none;
 }

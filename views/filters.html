@@ -1,9 +1,70 @@
 <div class="row">
     <div class="col-md-12">
         <div class="widget animated fadeIn">
+            <div class="widget-header">
+                <p> Create filters </p>
+            </div>
             <div class="widget-body">
-                <p>Test</p>
-                <p>{{filters}}</p>
+
+                <!-- <textarea rows="1" type="text" class="form-control"></textarea> -->
+
+                <form ng-submit="submitFilter()">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Field</label>
+                            <select ng-model="expression.field" class="form-control">
+                                <option value="name">name</option>
+                                <option value="userid">userid</option>
+                                <option value="date">date</option>
+                                <option value="value">value</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Operator</label>
+                            <select ng-model="expression.operator" class="form-control">
+                                <option value="<=">&lt;=</option>
+                                <option value=">=">&gt;=</option>
+                                <option value="contains">contains</option>
+                                <option value="===">=</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Value</label>
+                            <input ng-model="expression.value" class="form-control" />
+                        </div>
+                        <div class="col-md-3">
+                            <label>Submit</label>
+                            <button type="submit" class="btn btn-block btn-primary ">Submit</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    expression:
+                    <p> {{expression}} </p>
+                </div>
+
+                <div class="row">
+                    Results ({{results.total}}):
+                    <table class="table">
+                        <thead>
+                            <th> ID </th>
+                            <th> Name </th>
+                            <th> Value </th>
+                            <th> Date </th>
+                            <th> Unit </th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="test in results.data">
+                                <td>{{test.userid}}</td>
+                                <td>{{test.name}}</td>
+                                <td>{{test.value}}</td>
+                                <td>{{test.date}}</td>
+                                <td>{{test.unit}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
     </div>
