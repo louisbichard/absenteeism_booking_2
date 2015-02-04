@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="widget animated fadeIn">
+            <div class="widget-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <select class="form-control">
+                            <option selected="selected" value="V"> My team </option>
+                            <option value="P"> Everyone elses </option>
+                            <option value="T"> All clashes </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div ng-hide="!selectedUser">
+            <div class="widget  animated fadeIn">
+                <div class="widget-body scroll-large calendar">
+                    <table class="table">
+                        <thead>
+                            <th class="text-center">Your bookings </th>
+                            <th ng-repeat="user in users">
+                                <p class="text-center">{{user.initials}}</p>
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="date in demo_dates">
+                                <td class="text-center">{{date}}</td>
+                                <td class="date-cell" ng-repeat="blah in users">
+<span ng-click="addBooking()" ng-class="{AM: getCellUser(users[$index].name, bookings_by_date[date], 'AM')}" />
+                                    <span ng-click="addBooking()" ng-class="{PM: getCellUser(users[$index].name, bookings_by_date[date], 'PM')}" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div ng-hide="selectedUser">
+            <div class="widget animated fadeIn">
+                <div class="widget-body">
+                    <h3 class="text-center"> Please login to begin </h3>
+                    <div class="alert alert-info" role="alert">
+                        <h4>Adding</h4>
+                        <ol>
+                            <li>Choose unit and value</li>
+                            <li>Click calendar cell </li>
+                            <li>Confirm</li>
+                        </ol>
+                        <h4>Deleting</h4>
+                        <p> Click dates in the calendar to remove bookings</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

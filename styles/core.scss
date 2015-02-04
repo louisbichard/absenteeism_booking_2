@@ -60,7 +60,7 @@ body {
     border-bottom-color: $color-accent;
     border-bottom-width: 2px;
 }
-.text-accent {
+.text-primary {
     color: $color-primary-dark;
 }
 .panel-group {
@@ -75,7 +75,7 @@ body {
 }
 .scroll-large {
     overflow-y: auto;
-    height: 400px;
+    height: 800px;
 }
 // CLASHES 
 a.fc-day-grid-event.fc-event.fc-start.fc-end.calendar-cell.event-clash.fc-draggable {
@@ -96,5 +96,32 @@ td.fc-widget-content {
     }
     .login {
         margin: 24px;
+    }
+}
+.calendar {
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+        padding: 0px;
+        border-right: 1px solid #ddd;
+    }
+    td.date-cell {
+        width: 40px;
+    }
+    td > span {
+        display: block;
+        height: 19px;
+    }
+    td > span.AM {
+        background-color: red
+    }
+    td > span.PM {
+        background-color: blue
+    }
+    td > span:hover {
+        background-color: $color-accent;
+        opacity: 0.5;
+    }
+    td > span:hover {
+        background-color: $color-accent;
+        opacity: 0.5;
     }
 }

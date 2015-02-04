@@ -48,7 +48,7 @@ body {
   border-bottom-color: #FFCA28;
   border-bottom-width: 2px; }
 
-.text-accent {
+.text-primary {
   color: #B428FF; }
 
 .panel-group .panel-default .panel-heading {
@@ -58,7 +58,7 @@ body {
 
 .scroll-large {
   overflow-y: auto;
-  height: 400px; }
+  height: 800px; }
 
 a.fc-day-grid-event.fc-event.fc-start.fc-end.calendar-cell.event-clash.fc-draggable {
   border-color: red;
@@ -74,5 +74,24 @@ td.fc-widget-content {
   margin: 31px; }
 .navigation .login {
   margin: 24px; }
+
+.calendar .table > tbody > tr > td, .calendar .table > tbody > tr > th, .calendar .table > tfoot > tr > td, .calendar .table > tfoot > tr > th, .calendar .table > thead > tr > td, .calendar .table > thead > tr > th {
+  padding: 0px;
+  border-right: 1px solid #ddd; }
+.calendar td.date-cell {
+  width: 40px; }
+.calendar td > span {
+  display: block;
+  height: 19px; }
+.calendar td > span.AM {
+  background-color: red; }
+.calendar td > span.PM {
+  background-color: blue; }
+.calendar td > span:hover {
+  background-color: #FFCA28;
+  opacity: 0.5; }
+.calendar td > span:hover {
+  background-color: #FFCA28;
+  opacity: 0.5; }
 
 /*# sourceMappingURL=core.css.map */
