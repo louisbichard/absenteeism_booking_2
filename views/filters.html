@@ -10,46 +10,12 @@
                     <p class="text-center"> {{expression}} </p>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <select required class="form-control">
-                            <option value="name">selct</option>
-                            <option value="userid">count</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <textarea rows="1" type="text" class="form-control"></textarea>
-                    </div>
-                </div>
-
-
-                <!-- <form ng-submit="saveFilter()">
+                <br>
+                <form ng-submit="saveFilter()">
                     <div class="row">
-                        <div class="col-md-2">
-                            <label>Field</label>
+                        <div class="col-md-8">
+                            <label>Filter name</label>
                             <input required class="form-control" ng-model="expression.name"></input>
-                        </div>
-                        <div class="col-md-2">
-                            <label>Field</label>
-                            <select required ng-model="expression.field" class="form-control">
-                                <option value="name">name</option>
-                                <option value="userid">userid</option>
-                                <option value="date">date</option>
-                                <option value="value">value</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <label>Operator</label>
-                            <select required ng-model="expression.operator" class="form-control">
-                                <option value="<=">&lt;=</option>
-                                <option value=">=">&gt;=</option>
-                                <option value="contains">contains</option>
-                                <option value="===">=</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <label>Value (comma-sep)</label>
-                            <input required ng-model="expression.value" class="form-control" />
                         </div>
                         <div class="col-md-2">
                             <label></label>
@@ -61,26 +27,54 @@
                             <button type="submit" class="btn btn-block btn-success "><i class="fa fa-save"></i>&nbsp;Save</button>
                         </div>
                     </div>
-                </form> -->
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Field</label>
+                            <select required ng-model="expression.field" class="form-control">
+                                <option value="name">name</option>
+                                <option value="userid">userid</option>
+                                <option value="date">date</option>
+                                <option value="value">value</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Operator</label>
+                            <select required ng-model="expression.operator" class="form-control" ng-options="operator as operator for operator in operators">
+                                <option value="<=">&lt;=</option>
+                                <option value=">=">&gt;=</option>
+                                <option value="contains">contains</option>
+                                <option value="===">=</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Value (comma-sep)</label>
+                            <input required ng-model="expression.value" class="form-control" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-
+        <div class="widget" ng-show="results.data">
+            <div class="widget-body">
                 <div class="row">
-                    Results ({{results.total}}):
+                    Results ({{results.total}})
                     <table class="table">
                         <thead>
-                            <th> ID </th>
-                            <th> Name </th>
-                            <th> Value </th>
-                            <th> Date </th>
-                            <th> Unit </th>
+                            <th>userid</th>
+                            <th>date</th>
+                            <th>name</th>
+                            <th>value</th>
+                            <th>unit</th>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="test in results.data">
-                                <td>{{test.userid}}</td>
-                                <td>{{test.name}}</td>
-                                <td>{{test.value}}</td>
-                                <td>{{test.date}}</td>
-                                <td>{{test.unit}}</td>
+                            <tr ng-repeat="record in results.data">
+                                <td>{{record.userid}}</td>
+                                <td>{{record.date}}</td>
+                                <td>{{record.name}}</td>
+                                <td>{{record.value}}</td>
+                                <td>{{record.unit}}</td>
                             </tr>
                         </tbody>
                     </table>

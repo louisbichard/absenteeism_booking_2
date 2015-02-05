@@ -16,6 +16,11 @@ APP.config(function($routeProvider) {
         controller: 'filterController'
     })
 
+    .when('/special', {
+        templateUrl: '../views/special.html',
+        controller: 'specialController'
+    })
+
     // #DEFAULT REDIRECT
     .otherwise({
         redirectTo: '/'

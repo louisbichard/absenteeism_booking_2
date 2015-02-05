@@ -1,0 +1,43 @@
+<div class="widget">
+    <div class="widget-body">
+        <form ng-submit="testSpecialFilter(special_expression)">
+            <div class="row">
+                <div class="col-md-4">
+                    <label>Special search</label>
+                    <select required ng-model="special_expression" class="form-control" ng-options="filter as filter.name for filter in special_filters">
+                        <option style="display:none" value="">Select a filter</option>
+                    </select>
+                </div>
+                <div class="col-md-4" ng-repeat="(index, field) in special_expression.fields">
+                    <label>{{field.label}}</label>
+                    <input type="{{field.type}}" ng-model="special_expression.fields[index].value" required class="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <label></label>
+                    <button class="btn btn-block btn-primary ">
+                        Test
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="widget" ng-show="results.data">
+    <div class="widget-body">
+        <div class="row">
+            Results ({{results.total}})
+            <table class="table">
+                <thead>
+                    <th ng-repeat="table_head in results.keys">{{table_head}}</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="record in results.data">
+                        <td ng-repeat="(key, value) in record">{{value}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

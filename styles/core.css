@@ -77,27 +77,36 @@ td.fc-widget-content {
 .navigation .login {
   margin: 24px; }
 
+.calendar .table > thead:first-child > tr:first-child > th {
+  border-top: 1px solid #ddd; }
+.calendar th, .calendar td {
+  border: 1px solid #ddd; }
 .calendar .table > tbody > tr > td, .calendar .table > tbody > tr > th, .calendar .table > tfoot > tr > td, .calendar .table > tfoot > tr > th, .calendar .table > thead > tr > td, .calendar .table > thead > tr > th {
   padding: 0px;
   border-right: 1px solid #ddd; }
 .calendar td.date-of-booking {
   width: 15%; }
 .calendar td.date-cell.date-user {
-  width: 150px; }
+  width: 20%; }
 .calendar td.date-cell {
-  width: 35px; }
+  width: 35px;
+  border: 1px solid #ddd; }
 .calendar td > span {
   display: block;
   height: 15px; }
-.calendar td > span.AM, .calendar td > span.PM {
+.calendar td > span.value-V {
   background-color: lightblue; }
+.calendar td > span.value-T {
+  background-color: red; }
+.calendar td > span.value-P {
+  background-color: green; }
 .calendar td.date-user > span:hover {
   background-color: #FFCA28;
   opacity: 0.5; }
 .calendar td.date-user > span:active {
   cursor: pointer; }
 .calendar tr.ng-scope.endofweek {
-  border-top-width: 2px;
+  border-top-width: 3px;
   border-top-style: solid; }
 
 *.unselectable {

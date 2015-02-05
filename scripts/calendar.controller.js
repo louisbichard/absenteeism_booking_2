@@ -2,6 +2,8 @@ APP.controller('calendarController', function($scope, bookingService, filterServ
 
     $scope.bookings_by_date = [];
 
+    $scope.selected_unit = "V";
+
     $scope.filters = filterService.filters;
 
     // TODO: JUST AN EXAMPLE, DELETE THIS EVENTUALLY
@@ -33,8 +35,15 @@ APP.controller('calendarController', function($scope, bookingService, filterServ
         $scope.bookings_by_date = _.chain(filtered_users)
             // NOTE: MUST PERFORM FILTER BEFORE THE GROUP BY
             .filter(theFilter)
+            // TODO: FILTER OUT THE DATES NOT CURRENTLY VIEWED
             .groupBy('date')
             .value();
+
+        $scope.bookings_by_date_current_user = _.chain(bookingService.read.formatted())
+            .filter({
+                userid: $scope.selectedUser.userid
+            })
+            .groupBy('date').value();
 
         $scope.users = bookingService.read.formattedUsers(filtered_users);
     };
@@ -44,11 +53,13 @@ APP.controller('calendarController', function($scope, bookingService, filterServ
             .format('d') === "1";
     };
 
-    $scope.getCellUser = function(name, bookings_on_date, unit) {
-        return _.find(bookings_on_date, {
+    $scope.cellHasBooking = function(name, bookings_on_date, unit, value, date) {
+        //        if (date === "13/04/2015" && name === "Matthew Webb") debugger;
+        var data = _.find(bookings_on_date, {
             name: name,
             unit: unit
         });
+        return (value && data) ? data.value : data;
     };
 
     $scope.addBooking = function(name, date, unit, elem, event) {
@@ -64,7 +75,7 @@ APP.controller('calendarController', function($scope, bookingService, filterServ
             "date": date,
             "unit": unit,
             // TODO: REPLACE WITHOUT HARDCODED VALUE
-            "value": "V"
+            "value": $scope.selected_unit
         };
 
         var user = _.pick($scope.selectedUser, ['name', 'userid']);

@@ -4,15 +4,17 @@
             <div class="widget-body">
                 <div class="row">
                     <div class="col-md-6">
-                        FILTER:
-                        <select ng-change="init()" ng-model="selectedFilter" class="form-control" ng-options="filter as filter.name for filter in filters">>
+                        <label> Filter </label>
+                        <select ng-change="init()" ng-model="selectedFilter" class="form-control" ng-options="filter as filter.name for filter in filters">
+                            <option style="display:none" value="">Select a filter</option>
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <select class="form-control">
-                            <option selected="selected" value="V"> Vacation </option>
-                            <option value="P"> Public Holiday </option>
-                            <option value="T"> T-something </option>
+                        <label> Unit </label>
+                        <select class="form-control" ng-model="selected_unit">
+                            <option selected="selected" value="V"> Vacation (V) </option>
+                            <option value="P"> Public Holiday (P) </option>
+                            <option value="T"> T-something (T) </option>
                         </select>
                     </div>
                 </div>
@@ -26,31 +28,68 @@
         <div ng-hide="!selectedUser">
             <div class="widget  animated fadeIn">
                 <div class="widget-body scroll-large calendar">
-                    <table class="table unselectable">
-                        <thead>
-                            <th>
-                                <p class="text-center">Date</p>
-                            </th>
-                            <th class="text-center">
-                                <p class="text-center"> Your bookings </p>
-                            </th>
-                            <th ng-repeat="user in users">
-                                <p tooltip="{{user.name}}" class="text-center">{{user.initials}}</p>
-                            </th>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="date in demo_dates" ng-class="{endofweek: isMonday(date)}">
-                                <td class="date-of-booking text-center">{{date}}</td>
-                                <td class="date-cell date-user">
-                                    <span ng-repeat="unit in ['AM', 'PM']" ng-mouseOver="addBooking(  selectedUser.name, date, unit, this, $event )" ng-mousedown="addBooking(  selectedUser.name, date, unit, this, $event )" ng-class="{ {{unit}}: getCellUser(selectedUser.name, bookings_by_date[date], unit)}" />
-                                </td>
-                                <td class="date-cell" ng-repeat="blah in users">
-                                    <span ng-class="{AM: getCellUser(users[$index].name, bookings_by_date[date], 'AM')}" />
-                                    <span ng-class="{PM: getCellUser(users[$index].name, bookings_by_date[date], 'PM')}" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <table class="table unselectable">
+                                <thead>
+                                    <th>
+                                        <p class="text-center">Date</p>
+                                    </th>
+                                    <th class="text-center">
+                                        <p class="text-center"> Your bookings </p>
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="date in demo_dates" ng-class="{endofweek: isMonday(date)}">
+                                        <td class="date-of-booking text-center">{{date}}</td>
+                                        <td class="date-cell date-user">
+                                            <span ng-repeat="unit in ['AM', 'PM']" ng-mouseOver="addBooking(  selectedUser.name, date, unit, this, $event )" ng-mousedown="addBooking(  selectedUser.name, date, unit, this, $event )" ng-class="
+                                            {
+                                            'value-V': cellHasBooking(selectedUser.name, bookings_by_date_current_user[date], unit, true) === 'V',
+                                            'value-P': cellHasBooking(selectedUser.name, bookings_by_date_current_user[date], unit, true) === 'T',
+                                            'value-T': cellHasBooking(selectedUser.name, bookings_by_date_current_user[date], unit, true) === 'P'
+                                            }" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-md-9">
+                            <table class="table unselectable">
+                                <thead>
+                                    <th ng-repeat="user in users">
+                                        <p tooltip="{{user.name}}" class="text-center">{{user.initials}}</p>
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="date in demo_dates" ng-class="{endofweek: isMonday(date)}">
+                                        <td class="date-cell" ng-repeat="blah in users">
+
+
+                                            <span ng-class="
+                                            {
+                                            'value-V': cellHasBooking(users[$index].name, bookings_by_date[date], 'AM', true) === 'V',
+                                            'value-P': cellHasBooking(users[$index].name, bookings_by_date[date], 'AM', true) === 'T',
+                                            'value-T': cellHasBooking(users[$index].name, bookings_by_date[date], 'AM', true) === 'P'
+                                            }
+                                            " />
+                                            <span ng-class="
+                                            {
+                                            'value-V': cellHasBooking(users[$index].name, bookings_by_date[date], 'PM', true) === 'V',
+                                            'value-P': cellHasBooking(users[$index].name, bookings_by_date[date], 'PM', true) === 'T',
+                                            'value-T': cellHasBooking(users[$index].name, bookings_by_date[date], 'PM', true) === 'P'
+                                            }
+                                            " />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>

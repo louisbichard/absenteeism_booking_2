@@ -102,6 +102,12 @@ td.fc-widget-content {
     }
 }
 .calendar {
+    .table>thead:first-child>tr:first-child>th {
+        border-top: 1px solid #ddd;
+    }
+    th, td {
+        border: 1px solid #ddd;
+    }
     .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
         padding: 0px;
         border-right: 1px solid #ddd;
@@ -110,17 +116,24 @@ td.fc-widget-content {
         width: 15%;
     }
     td.date-cell.date-user {
-        width: 150px;
+        width: 20%;
     }
     td.date-cell {
         width: 35px;
+        border: 1px solid #ddd;
     }
     td > span {
         display: block;
         height: 15px;
     }
-    td > span.AM, td > span.PM {
+    td > span.value-V {
         background-color: lightblue;
+    }
+    td > span.value-T {
+        background-color: red;
+    }
+    td > span.value-P {
+        background-color: green;
     }
     td.date-user > span:hover {
         background-color: $color-accent;
@@ -130,7 +143,7 @@ td.fc-widget-content {
         cursor: pointer;
     }
     tr.ng-scope.endofweek {
-        border-top-width: 2px;
+        border-top-width: 3px;
         border-top-style: solid;
     }
 }

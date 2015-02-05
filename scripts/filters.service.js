@@ -1,31 +1,30 @@
-APP.service("filterService", function() {
+APP.service("filterService", function(bookingService) {
+
     this.filters = [{
-            field: "name",
-            value: "Matthew Webb",
-            operator: "===",
-            name: "Filter just Matthew Webb"
-        }, {
             field: "name",
             value: "",
             operator: "contains",
             name: "All results"
         }, {
-            "name": "Just William",
+            field: "name",
+            value: "Matthew,Brojen,Cynthia",
+            operator: "contains",
+            name: "My Team (A)"
+        }, {
+            field: "name",
+            value: "Matthew Webb",
+            operator: "===",
+            name: "Just Matthew Webb"
+        }, {
+            "name": "Just Thomas William",
             "field": "name",
-            "value": "William",
+            "value": "Thomas William",
             "operator": "contains"
         }, {
-            name: "Something",
-            filter: [{
-                "field": "name",
-                "operator": "contains",
-                "value": "William"
-            }, {
-                "comparator": "OR",
-                "field": "name",
-                "operator": "contains",
-                "value": "William"
-            }]
+            "field": "value",
+            "value": "V",
+            "operator": "===",
+            "name": "Just Vacations"
         }
 
     ];
@@ -35,6 +34,22 @@ APP.service("filterService", function() {
             return a + b;
         },
         'contains': function(a, b) {
+
+            // ACCOMODATE COMMA SEPARATED
+            b = b.split(',');
+
+            return _.reduce(b, function(prev, curr) {
+
+                var has_substring =
+                    a
+                    .toString()
+                    .indexOf(curr) > -1;
+
+                return (prev || has_substring);
+
+            }, false);
+        },
+        'date-between': function(a, b) {
             return a.indexOf(b) > -1;
         },
         '<=': function(a, b) {
@@ -44,7 +59,17 @@ APP.service("filterService", function() {
             return a >= b;
         },
         '===': function(a, b) {
-            return a === b;
+
+            b = b.split(',');
+
+            return _.reduce(b, function(prev, curr) {
+
+                var is_equal = (a.toString() === curr);
+
+                return (prev || is_equal);
+
+            }, false);
+
         }
     };
 });
