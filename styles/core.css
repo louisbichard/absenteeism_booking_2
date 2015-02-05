@@ -77,6 +77,15 @@ td.fc-widget-content {
 .navigation .login {
   margin: 24px; }
 
+p.value-T {
+  color: green; }
+
+p.value-V {
+  color: red; }
+
+p.value-P {
+  color: blue; }
+
 .calendar .table > thead:first-child > tr:first-child > th {
   border-top: 1px solid #ddd; }
 .calendar th, .calendar td {
@@ -95,11 +104,11 @@ td.fc-widget-content {
   display: block;
   height: 15px; }
 .calendar td > span.value-V {
-  background-color: lightblue; }
-.calendar td > span.value-T {
   background-color: red; }
-.calendar td > span.value-P {
+.calendar td > span.value-T {
   background-color: green; }
+.calendar td > span.value-P {
+  background-color: blue; }
 .calendar td.date-user > span:hover {
   background-color: #FFCA28;
   opacity: 0.5; }

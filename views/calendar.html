@@ -11,11 +11,18 @@
                     </div>
                     <div class="col-md-6">
                         <label> Unit </label>
-                        <select class="form-control" ng-model="selected_unit">
-                            <option selected="selected" value="V"> Vacation (V) </option>
-                            <option value="P"> Public Holiday (P) </option>
-                            <option value="T"> T-something (T) </option>
-                        </select>
+
+                        <p class="value-V">
+                            <!-- ng-class="{'radio-selected': selected_unit === 'V'}"> -->
+                            <input type="radio" ng-model="selected_unit" value="V"> Vacation </input>
+                        </p>
+                        <p class="value-P">
+                            <input type="radio" ng-model="selected_unit" value="P"> Public Holiday </input>
+                        </p>
+                        <p class="value-T">
+                            <input type="radio" ng-model="selected_unit" value="T"> T </input>
+                        </p>
+
                     </div>
                 </div>
             </div>
@@ -47,8 +54,8 @@
                                             <span ng-repeat="unit in ['AM', 'PM']" ng-mouseOver="addBooking(  selectedUser.name, date, unit, this, $event )" ng-mousedown="addBooking(  selectedUser.name, date, unit, this, $event )" ng-class="
                                             {
                                             'value-V': cellHasBooking(selectedUser.name, bookings_by_date_current_user[date], unit, true) === 'V',
-                                            'value-P': cellHasBooking(selectedUser.name, bookings_by_date_current_user[date], unit, true) === 'T',
-                                            'value-T': cellHasBooking(selectedUser.name, bookings_by_date_current_user[date], unit, true) === 'P'
+                                            'value-T': cellHasBooking(selectedUser.name, bookings_by_date_current_user[date], unit, true) === 'T',
+                                            'value-P': cellHasBooking(selectedUser.name, bookings_by_date_current_user[date], unit, true) === 'P'
                                             }" />
                                         </td>
                                     </tr>
@@ -71,15 +78,15 @@
                                             <span ng-class="
                                             {
                                             'value-V': cellHasBooking(users[$index].name, bookings_by_date[date], 'AM', true) === 'V',
-                                            'value-P': cellHasBooking(users[$index].name, bookings_by_date[date], 'AM', true) === 'T',
-                                            'value-T': cellHasBooking(users[$index].name, bookings_by_date[date], 'AM', true) === 'P'
+                                            'value-T': cellHasBooking(users[$index].name, bookings_by_date[date], 'AM', true) === 'T',
+                                            'value-P': cellHasBooking(users[$index].name, bookings_by_date[date], 'AM', true) === 'P'
                                             }
                                             " />
                                             <span ng-class="
                                             {
                                             'value-V': cellHasBooking(users[$index].name, bookings_by_date[date], 'PM', true) === 'V',
-                                            'value-P': cellHasBooking(users[$index].name, bookings_by_date[date], 'PM', true) === 'T',
-                                            'value-T': cellHasBooking(users[$index].name, bookings_by_date[date], 'PM', true) === 'P'
+                                            'value-T': cellHasBooking(users[$index].name, bookings_by_date[date], 'PM', true) === 'T',
+                                            'value-P': cellHasBooking(users[$index].name, bookings_by_date[date], 'PM', true) === 'P'
                                             }
                                             " />
                                         </td>

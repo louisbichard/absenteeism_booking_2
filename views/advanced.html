@@ -8,9 +8,13 @@
                         <option style="display:none" value="">Select a filter</option>
                     </select>
                 </div>
-                <div class="col-md-4" ng-repeat="(index, field) in special_expression.fields">
+                <div class="col-md-2" ng-repeat="(index, field) in special_expression.fields">
                     <label>{{field.label}}</label>
+
+
                     <input type="{{field.type}}" ng-model="special_expression.fields[index].value" required class="form-control" />
+
+
                 </div>
                 <div class="col-md-2">
                     <label></label>

@@ -1,6 +1,9 @@
 // STYLE GUIDE:
 $color-primary-dark: #B428FF;
 $color-accent: #FFCA28;
+$color-unit-V: red;
+$color-unit-P: blue;
+$color-unit-T: green;
 body {
     background-color: #f3f3f3;
     font-family: 'Roboto', serif;
@@ -101,6 +104,15 @@ td.fc-widget-content {
         margin: 24px;
     }
 }
+p.value-T {
+    color: $color-unit-T;
+}
+p.value-V {
+    color: $color-unit-V;
+}
+p.value-P {
+    color: $color-unit-P;
+}
 .calendar {
     .table>thead:first-child>tr:first-child>th {
         border-top: 1px solid #ddd;
@@ -127,13 +139,13 @@ td.fc-widget-content {
         height: 15px;
     }
     td > span.value-V {
-        background-color: lightblue;
+        background-color: $color-unit-V;
     }
     td > span.value-T {
-        background-color: red;
+        background-color: $color-unit-T;
     }
     td > span.value-P {
-        background-color: green;
+        background-color: $color-unit-P;
     }
     td.date-user > span:hover {
         background-color: $color-accent;

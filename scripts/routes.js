@@ -16,9 +16,14 @@ APP.config(function($routeProvider) {
         controller: 'filterController'
     })
 
-    .when('/special', {
-        templateUrl: '../views/special.html',
-        controller: 'specialController'
+    .when('/advanced', {
+        templateUrl: '../views/advanced.html',
+        controller: 'advancedController'
+    })
+
+    .when('/heatmap', {
+        templateUrl: '../views/heatmap.html',
+        controller: 'heatMapController'
     })
 
     // #DEFAULT REDIRECT
