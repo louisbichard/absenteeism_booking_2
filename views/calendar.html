@@ -4,23 +4,17 @@
             <div class="widget-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <select class="form-control">
-                            <option selected="selected" value="V"> My team </option>
-                            <option value="P"> Everyone elses </option>
-                            <option value="T"> All clashes </option>
+                        FILTER:
+                        <select ng-change="init()" ng-model="selectedFilter" class="form-control" ng-options="filter as filter.name for filter in filters">>
                         </select>
-
                     </div>
-
                     <div class="col-md-6">
                         <select class="form-control">
                             <option selected="selected" value="V"> Vacation </option>
                             <option value="P"> Public Holiday </option>
                             <option value="T"> T-something </option>
                         </select>
-
                     </div>
-
                 </div>
             </div>
         </div>
@@ -46,9 +40,9 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="date in demo_dates" ng-class="{endofweek: isMonday(date)}">
-                                <td class="text-center">{{date}}</td>
+                                <td class="date-of-booking text-center">{{date}}</td>
                                 <td class="date-cell date-user">
-                                    <span ng-repeat="unit in ['AM', 'PM']" ng-mouseOver="addBooking(  selectedUser.name, date, unit, this, $event )" ng-click="addBooking(  selectedUser.name, date, unit, this, $event )" ng-class="{ {{unit}}: getCellUser(selectedUser.name, bookings_by_date[date], unit)}" />
+                                    <span ng-repeat="unit in ['AM', 'PM']" ng-mouseOver="addBooking(  selectedUser.name, date, unit, this, $event )" ng-mousedown="addBooking(  selectedUser.name, date, unit, this, $event )" ng-class="{ {{unit}}: getCellUser(selectedUser.name, bookings_by_date[date], unit)}" />
                                 </td>
                                 <td class="date-cell" ng-repeat="blah in users">
                                     <span ng-class="{AM: getCellUser(users[$index].name, bookings_by_date[date], 'AM')}" />

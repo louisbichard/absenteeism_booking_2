@@ -6,42 +6,63 @@
             </div>
             <div class="widget-body">
 
-                <!-- <textarea rows="1" type="text" class="form-control"></textarea> -->
+                <div class="row">
+                    <p class="text-center"> {{expression}} </p>
+                </div>
 
-                <form ng-submit="submitFilter()">
+                <div class="row">
+                    <div class="col-md-6">
+                        <select required class="form-control">
+                            <option value="name">selct</option>
+                            <option value="userid">count</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <textarea rows="1" type="text" class="form-control"></textarea>
+                    </div>
+                </div>
+
+
+                <!-- <form ng-submit="saveFilter()">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label>Field</label>
-                            <select ng-model="expression.field" class="form-control">
+                            <input required class="form-control" ng-model="expression.name"></input>
+                        </div>
+                        <div class="col-md-2">
+                            <label>Field</label>
+                            <select required ng-model="expression.field" class="form-control">
                                 <option value="name">name</option>
                                 <option value="userid">userid</option>
                                 <option value="date">date</option>
                                 <option value="value">value</option>
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label>Operator</label>
-                            <select ng-model="expression.operator" class="form-control">
+                            <select required ng-model="expression.operator" class="form-control">
                                 <option value="<=">&lt;=</option>
                                 <option value=">=">&gt;=</option>
                                 <option value="contains">contains</option>
                                 <option value="===">=</option>
                             </select>
                         </div>
-                        <div class="col-md-3">
-                            <label>Value</label>
-                            <input ng-model="expression.value" class="form-control" />
+                        <div class="col-md-2">
+                            <label>Value (comma-sep)</label>
+                            <input required ng-model="expression.value" class="form-control" />
                         </div>
-                        <div class="col-md-3">
-                            <label>Submit</label>
-                            <button type="submit" class="btn btn-block btn-primary ">Submit</button>
+                        <div class="col-md-2">
+                            <label></label>
+                            <a ng-click="submitFilter()" class="btn btn-block btn-primary ">Test
+                            </a>
+                        </div>
+                        <div class="col-md-2">
+                            <label></label>
+                            <button type="submit" class="btn btn-block btn-success "><i class="fa fa-save"></i>&nbsp;Save</button>
                         </div>
                     </div>
-                </form>
-                <div class="row">
-                    expression:
-                    <p> {{expression}} </p>
-                </div>
+                </form> -->
+
 
                 <div class="row">
                     Results ({{results.total}}):

@@ -1,17 +1,23 @@
 /**
  * Main controller for the application
  */
-APP.controller('filterController', function($scope, bookingService) {
+APP.controller('filterController', function($scope, bookingService, filterService) {
 
     // A UNIQUE, ALPHABETICALLY NAME SORTED LIST OF USERS
     $scope.users = bookingService.read.formattedUsers();
 
+    $scope.saveFilter = function() {
+        filterService.filters.push($scope.expression);
+        $scope.expression = {};
+    };
+
     $scope.submitFilter = function(test) {
-        console.log('test');
+
         var data =
             _.chain(bookingService.read.raw())
             .filter(filterFromExpression)
             .value();
+
         $scope.results = {
             data: data,
             total: data.length
@@ -19,26 +25,8 @@ APP.controller('filterController', function($scope, bookingService) {
 
     };
 
-    var operators = {
-        '+': function(a, b) {
-            return a + b;
-        },
-        'contains': function(a, b) {
-            return a.indexOf(b) > -1;
-        },
-        '<=': function(a, b) {
-            return a <= b;
-        },
-        '>=': function(a, b) {
-            return a >= b;
-        },
-        '===': function(a, b) {
-            return a === b;
-        }
-    };
-
     var filterFromExpression = function(curr) {
-        return operators[$scope.expression.operator](curr[$scope.expression.field], $scope.expression.value);
+        return filterService.operators[$scope.expression.operator](curr[$scope.expression.field], $scope.expression.value);
     };
 
     $scope.expression = {

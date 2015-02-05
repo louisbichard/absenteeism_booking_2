@@ -80,6 +80,8 @@ td.fc-widget-content {
 .calendar .table > tbody > tr > td, .calendar .table > tbody > tr > th, .calendar .table > tfoot > tr > td, .calendar .table > tfoot > tr > th, .calendar .table > thead > tr > td, .calendar .table > thead > tr > th {
   padding: 0px;
   border-right: 1px solid #ddd; }
+.calendar td.date-of-booking {
+  width: 15%; }
 .calendar td.date-cell.date-user {
   width: 150px; }
 .calendar td.date-cell {

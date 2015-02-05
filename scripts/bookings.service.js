@@ -20,8 +20,8 @@ APP.service("bookingService", function(databaseService) {
                 })
                 .value();
         },
-        formattedUsers: function() {
-            return _.chain(this.raw())
+        formattedUsers: function(data) {
+            return _.chain(data || this.raw())
                 .uniq('name')
                 // EXTRACT THE INITIALS FOR THE USER
                 .map(function(curr) {

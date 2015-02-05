@@ -1,11 +1,10 @@
-/**
- * Main controller for the application
- */
 APP.controller('calendarController', function($scope, bookingService, filterService) {
+
     $scope.bookings_by_date = [];
 
     $scope.filters = filterService.filters;
 
+    // TODO: JUST AN EXAMPLE, DELETE THIS EVENTUALLY
     $scope.selectedUser = {
         "userid": 8,
         "name": "Edward H. Temme",
@@ -13,10 +12,31 @@ APP.controller('calendarController', function($scope, bookingService, filterServ
     };
 
     $scope.init = function() {
-        console.log('init')
-        $scope.bookings_by_date = _.chain(bookingService.read.formatted())
+        var theFilter;
+
+        if ($scope.selectedFilter) {
+            var f = $scope.selectedFilter;
+            theFilter = function(curr) {
+                return filterService.operators[f.operator](curr[f.field], f.value);
+            };
+        } else {
+            theFilter = function() {
+                return true;
+            };
+        }
+
+        var filtered_users =
+            _.chain(bookingService.read.formatted())
+            .filter(theFilter)
+            .value();
+
+        $scope.bookings_by_date = _.chain(filtered_users)
+            // NOTE: MUST PERFORM FILTER BEFORE THE GROUP BY
+            .filter(theFilter)
             .groupBy('date')
             .value();
+
+        $scope.users = bookingService.read.formattedUsers(filtered_users);
     };
 
     $scope.isMonday = function(day) {
@@ -32,7 +52,8 @@ APP.controller('calendarController', function($scope, bookingService, filterServ
     };
 
     $scope.addBooking = function(name, date, unit, elem, event) {
-        var css_classes = event.currentTarget.className
+        // TODO: SORT THIS OUT, IT'S A LITTLE HACKY
+        var css_classes = event.currentTarget.className;
 
         // TODO: CONVERT TO REGEX
         var has_am_booking = css_classes.indexOf('AM');
