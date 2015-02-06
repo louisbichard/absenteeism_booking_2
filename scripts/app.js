@@ -1,1 +1,1 @@
-APP = angular.module('APP', ['ngRoute', 'ui.calendar', 'ui.bootstrap']);
+APP = angular.module('APP', ['ngRoute', 'ui.calendar', 'ui.bootstrap', 'calHeatmap']);
