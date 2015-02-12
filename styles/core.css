@@ -76,6 +76,8 @@ td.fc-widget-content {
 .fc-toolbar .fc-button.fc-state-default {
   border-radius: 0px; }
 
+.navigation .selected-nav > a {
+  color: #FFCA28; }
 .navigation .nav-link {
   margin: 31px; }
 .navigation .login {
@@ -85,7 +87,7 @@ p.value-T {
   color: green; }
 
 p.value-V {
-  color: red; }
+  color: orange; }
 
 p.value-P {
   color: blue; }
@@ -107,8 +109,13 @@ p.value-P {
 .calendar td > span {
   display: block;
   height: 15px; }
+.calendar td > span.clashed {
+  border-right: red;
+  border-right-color: red;
+  border-right-width: 4px;
+  border-right-style: solid; }
 .calendar td > span.value-V {
-  background-color: red; }
+  background-color: orange; }
 .calendar td > span.value-T {
   background-color: green; }
 .calendar td > span.value-P {
@@ -116,6 +123,11 @@ p.value-P {
 .calendar td.date-user > span:hover {
   background-color: #FFCA28;
   opacity: 0.5; }
+.calendar td.date-user.would-cause-clash > span:hover {
+  border-right: red;
+  border-right-color: red;
+  border-right-width: 4px;
+  border-right-style: solid; }
 .calendar td.date-user > span:active {
   cursor: pointer; }
 .calendar tr.ng-scope.endofweek {

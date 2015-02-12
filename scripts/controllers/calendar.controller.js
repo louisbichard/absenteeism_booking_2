@@ -2,6 +2,35 @@ APP.controller('calendarController', function($scope, bookingService, filterServ
 
     $scope.bookings_by_date = [];
 
+    // ARBITRARY DATES
+    $scope.date_ranges = {
+        "start": "02/2015",
+        "end": "04/2015"
+    };
+    var setupDemoDates = function() {
+
+        var start = moment($scope.date_ranges.start, 'MM/YYYY');
+        var end = moment($scope.date_ranges.end, 'MM/YYYY').add(1, 'month');
+
+        var diff = (end.diff(start, 'days'));
+
+        $scope.demo_dates =
+            _.chain(new Array(diff))
+            .map(function(curr, index) {
+                return moment($scope.date_ranges.start, 'MM/YYYY')
+                    .add(index, 'day')
+                    .format('DD/MM/YYYY');
+            })
+            .filter(function(curr, index) {
+                var day =
+                    moment(curr, 'DD/MM/YYYY')
+                    .format('E');
+                var isWeekend = (day === "6" || day === "7");
+                return !isWeekend;
+            })
+            .value();
+    };
+
     $scope.selected_unit = "V";
 
     $scope.filters = filterService.filters;
@@ -46,7 +75,9 @@ APP.controller('calendarController', function($scope, bookingService, filterServ
             })
             .groupBy('date').value();
 
+        // REINITIALISE SCOPE VARIABLES
         $scope.users = bookingService.read.formattedUsers(filtered_users);
+        $scope.clashedDates = bookingService.read.clashedDates();
     };
 
     $scope.isMonday = function(day) {
@@ -54,13 +85,24 @@ APP.controller('calendarController', function($scope, bookingService, filterServ
             .format('d') === "1";
     };
 
-    $scope.cellHasBooking = function(name, bookings_on_date, unit, value, date) {
-        //        if (date === "13/04/2015" && name === "Matthew Webb") debugger;
+    $scope.cellHasBooking = function(name, bookings_on_date, unit, value) {
         var data = _.find(bookings_on_date, {
             name: name,
             unit: unit
         });
         return (value && data) ? data.value : data;
+    };
+
+    $scope.cellHasClash = function(name, bookings_on_date, unit, value) {
+        return _.find(bookings_on_date, {
+            name: name,
+            unit: unit,
+            clashed: true
+        });
+    };
+
+    $scope.wouldCauseClash = function(date) {
+        return $scope.clashedDates[date];
     };
 
     $scope.addBooking = function(name, date, unit, elem, event) {
@@ -89,22 +131,9 @@ APP.controller('calendarController', function($scope, bookingService, filterServ
         }
     };
 
-    $scope.demo_dates =
-        _.chain(new Array(76))
-        .map(function(curr, index) {
-            return moment()
-                .add(index, 'day')
-                .format('DD/MM/YYYY');
-        })
-        .filter(function(curr, index) {
-            var day =
-                moment(curr, 'DD/MM/YYYY')
-                .format('E');
-
-            var isWeekend = (day === "6" || day === "7");
-            return !isWeekend;
-        })
-        .value();
+    $scope.$watch('date_ranges', function() {
+        setupDemoDates();
+    }, true);
 
     $scope.init();
 });

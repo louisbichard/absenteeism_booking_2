@@ -3,13 +3,26 @@
         <div class="widget animated fadeIn">
             <div class="widget-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-2">
+                        <label> Start &amp; End </label>
+                        <select ng-model="date_ranges.start" class="form-control">
+                            <option value="01/2015">January 2015</option>
+                            <option value="02/2015">February 2015</option>
+                            <option value="03/2015">March 2015</option>
+                        </select>
+                        <select ng-model="date_ranges.end" class="form-control">
+                            <option value="04/2015">April 2015</option>
+                            <option value="05/2015">May 2015</option>
+                            <option value="06/2015">June 2015</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
                         <label> Filter </label>
                         <select ng-change="init()" ng-model="selectedFilter" class="form-control" ng-options="filter as filter.name for filter in filters">
                             <option style="display:none" value="">Select a filter</option>
                         </select>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <label>Unit</label>
                         <div class="row">
                             <div class="col-md-4">
@@ -32,6 +45,7 @@
                         </div>
                     </div>
                 </div>
+                <br>
             </div>
         </div>
     </div>
@@ -57,12 +71,17 @@
                                 <tbody>
                                     <tr ng-repeat="date in demo_dates" ng-class="{endofweek: isMonday(date)}">
                                         <td class="date-of-booking text-center">{{date}}</td>
-                                        <td class="date-cell date-user">
+                                        <td class="date-cell date-user" ng-class="
+                                        {
+                                            'would-cause-clash': wouldCauseClash(date)
+                                        }">
                                             <span ng-repeat="unit in ['AM', 'PM']" ng-mouseOver="addBooking(  selected_user.name, date, unit, this, $event )" ng-mousedown="addBooking(  selected_user.name, date, unit, this, $event )" ng-class="
                                             {
                                             'value-V': cellHasBooking(selected_user.name, bookings_by_date_current_user[date], unit, true) === 'V',
                                             'value-T': cellHasBooking(selected_user.name, bookings_by_date_current_user[date], unit, true) === 'T',
-                                            'value-P': cellHasBooking(selected_user.name, bookings_by_date_current_user[date], unit, true) === 'P'
+                                            'value-P': cellHasBooking(selected_user.name, bookings_by_date_current_user[date], unit, true) === 'P',
+                                            'clashed': cellHasClash(selected_user.name, bookings_by_date_current_user[date], unit)
+                                            
                                             }" />
                                         </td>
                                     </tr>
@@ -85,20 +104,20 @@
                                     <tr ng-repeat="date in demo_dates" ng-class="{endofweek: isMonday(date)}">
                                         <td class="date-of-booking text-center">{{bookings_by_date[date].length / 2 || 0 }}</td>
                                         <td class="date-cell" ng-repeat="blah in users">
-
-
                                             <span ng-class="
                                             {
                                             'value-V': cellHasBooking(users[$index].name, bookings_by_date[date], 'AM', true) === 'V',
                                             'value-T': cellHasBooking(users[$index].name, bookings_by_date[date], 'AM', true) === 'T',
-                                            'value-P': cellHasBooking(users[$index].name, bookings_by_date[date], 'AM', true) === 'P'
+                                            'value-P': cellHasBooking(users[$index].name, bookings_by_date[date], 'AM', true) === 'P',
+                                            'clashed': cellHasClash(users[$index].name, bookings_by_date[date], 'AM')
                                             }
                                             " />
                                             <span ng-class="
                                             {
                                             'value-V': cellHasBooking(users[$index].name, bookings_by_date[date], 'PM', true) === 'V',
                                             'value-T': cellHasBooking(users[$index].name, bookings_by_date[date], 'PM', true) === 'T',
-                                            'value-P': cellHasBooking(users[$index].name, bookings_by_date[date], 'PM', true) === 'P'
+                                            'value-P': cellHasBooking(users[$index].name, bookings_by_date[date], 'PM', true) === 'P',
+                                            'clashed': cellHasClash(users[$index].name, bookings_by_date[date], 'PM')
                                             }
                                             " />
                                         </td>
@@ -106,30 +125,6 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        <div ng-hide="selected_user">
-            <div class="widget animated fadeIn">
-                <div class="widget-body">
-                    <h3 class="text-center"> Please login to begin </h3>
-                    <div class="alert alert-info" role="alert">
-                        <h4>Adding</h4>
-                        <ol>
-                            <li>Choose unit and value</li>
-                            <li>Click calendar cell </li>
-                            <li>Confirm</li>
-                        </ol>
-                        <h4>Deleting</h4>
-                        <p> Click dates in the calendar to remove bookings</p>
                     </div>
                 </div>
             </div>

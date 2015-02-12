@@ -1,7 +1,7 @@
 // STYLE GUIDE:
 $color-primary-dark: #B428FF;
 $color-accent: #FFCA28;
-$color-unit-V: red;
+$color-unit-V: orange;
 $color-unit-P: blue;
 $color-unit-T: green;
 body {
@@ -101,6 +101,9 @@ td.fc-widget-content {
     }
 }
 .navigation {
+    .selected-nav > a {
+        color: $color-accent;
+    }
     .nav-link {
         margin: 31px;
     }
@@ -142,6 +145,13 @@ p.value-P {
         display: block;
         height: 15px;
     }
+    td > span.clashed {
+        border-right: red;
+        border-right-color: red;
+        border-right-width: 4px;
+        border-right-style: solid;
+    }
+    // THE DIFFERENT VALUE TYPES
     td > span.value-V {
         background-color: $color-unit-V;
     }
@@ -154,6 +164,12 @@ p.value-P {
     td.date-user > span:hover {
         background-color: $color-accent;
         opacity: 0.5;
+    }
+    td.date-user.would-cause-clash > span:hover {
+        border-right: red;
+        border-right-color: red;
+        border-right-width: 4px;
+        border-right-style: solid;
     }
     td.date-user > span:active {
         cursor: pointer;

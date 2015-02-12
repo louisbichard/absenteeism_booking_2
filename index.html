@@ -39,13 +39,13 @@
                     <h2 class="text-primary"> Mudano </h2>
                 </div>
                 <div class="col-md-1 ">
-                    <p class="nav-link"><a href="#calendar"> Calendar</a> </p>
+                    <p class="nav-link" ng-class="{'selected-nav': current_location === 'calendar'}"><a href="#calendar"> Calendar</a> </p>
                 </div>
                 <div class="col-md-1">
-                    <p class="nav-link"> <a href="#filters">Filters</a> </p>
+                    <p class="nav-link" ng-class="{'selected-nav': current_location === 'filters'}"> <a href="#filters">Filters</a> </p>
                 </div>
                 <div class="col-md-1">
-                    <p class="nav-link"> <a href="#advanced">Advanced</a> </p>
+                    <p class="nav-link" ng-class="{'selected-nav': current_location === 'advanced'}"> <a href="#advanced">Advanced</a> </p>
                 </div>
                 <div class="col-md-3 col-md-offset-1">
                     <select ng-model="selected_user" class="form-control login" ng-options="opt as opt.name for opt in login_users">
@@ -56,7 +56,6 @@
             </div>
         </div>
     </div>
-
     <div class="container">
         <div ng-view></div>
     </div>
@@ -94,7 +93,6 @@
     <script type="text/javascript" src="scripts/controllers/main.controller.js"></script>
     <script type="text/javascript" src="scripts/controllers/filter.controller.js"></script>
     <script type="text/javascript" src="scripts/controllers/advanced.controller.js"></script>
-    <script type="text/javascript" src="scripts/controllers/heatmap.controller.js"></script>
 
     <!-- ================SERVICES================ -->
     <script type="text/javascript" src="scripts/services/filters.service.js"></script>
