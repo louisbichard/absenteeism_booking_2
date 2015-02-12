@@ -30,9 +30,6 @@ APP.service("filterService", function(bookingService) {
     ];
 
     this.operators = {
-        '+': function(a, b) {
-            return a + b;
-        },
         'contains': function(a, b) {
 
             // ACCOMODATE COMMA SEPARATED
@@ -48,12 +45,6 @@ APP.service("filterService", function(bookingService) {
                 return (prev || has_substring);
 
             }, false);
-        },
-        '<=': function(a, b) {
-            return a <= b;
-        },
-        '>=': function(a, b) {
-            return a >= b;
         },
         '===': function(a, b) {
 
