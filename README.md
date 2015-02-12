@@ -34,6 +34,9 @@ The advanced reports area could be improved with the addition of print functiona
 ##### Client side validation on the reports area
 As the forms are generated dynamically, greater adoption of fields such as date popout selectors, and better use of client side validation would improve the functionality. The validation could be defined as regular expressions potetntially that are passed into the field via a directive or purely through Angulars validaiton mechanisms.
 
+##### Heat mapping on the reports (advanced pages)
+Heat maps could be generated for results sets to provide a better simple view than the current report, table structure that is present.
+
 # Features
 
 ## Filters
@@ -51,6 +54,8 @@ In future this would be abstracted away into API's.
 
 
 ## Advanced filters
+
+This is a peculiar front-end feature, as there is a lot of data processing occuring in order to render the templates, this would not be the case in a production applicaiton as a lot of the heavy manipulation of data would be done through a database query language. 
 
 - Advanced filters are easily constructed on the front end.
 - The advanced filter service has an array under the 'constant' property 'FILTERS' and has API methods for retrieving its data
