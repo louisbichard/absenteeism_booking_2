@@ -2,27 +2,27 @@ APP.config(function($routeProvider) {
     $routeProvider
 
         .when('/', {
-        templateUrl: '../views/calendar.html',
+        templateUrl: '../absenteeism_booking_2/views/calendar.html',
         controller: 'calendarController'
     })
 
     .when('/calendar', {
-        templateUrl: '../views/calendar.html',
+        templateUrl: '../absenteeism_booking_2/views/calendar.html',
         controller: 'calendarController'
     })
 
     .when('/filters', {
-        templateUrl: '../views/filters.html',
+        templateUrl: '../absenteeism_booking_2/views/filters.html',
         controller: 'filterController'
     })
 
     .when('/advanced', {
-        templateUrl: '../views/advanced.html',
+        templateUrl: '../absenteeism_booking_2/views/advanced.html',
         controller: 'advancedController'
     })
 
     .when('/heatmap', {
-        templateUrl: '../views/heatmap.html',
+        templateUrl: '../absenteeism_booking_2/views/heatmap.html',
         controller: 'heatMapController'
     })
 
