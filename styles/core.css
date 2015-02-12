@@ -58,6 +58,10 @@ body {
   .panel-group .panel-default .panel-heading .panel-title {
     color: white; }
 
+.scroll-small {
+  overflow-y: auto;
+  height: 400px; }
+
 .scroll-large {
   overflow-y: auto;
   height: 800px; }

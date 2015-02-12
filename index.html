@@ -15,18 +15,12 @@
     <!-- ================ICONS================ -->
     <link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css">
 
-    <!-- ================CALENDAR================ -->
+    <!-- ================PLUGINS================ -->
     <link rel="stylesheet" type="text/css" href="bower_components/fullcalendar/dist/fullcalendar.css">
-
-    <!-- ================ANIMATIONS================ -->
     <link rel="stylesheet" type="text/css" href="styles/animate.css">
-
-    <!-- ================HEATMAP================ -->
     <link rel="stylesheet" type="text/css" href="bower_components/cal-heatmap/cal-heatmap.css">
-
-
-    <!-- ================CUSTOM STYLES================ -->
     <link rel="stylesheet" type="text/css" href="styles/core.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-toastr/dist/angular-toastr.min.css">
 
 
     <link rel="shortcut icon" href="favicon.ico">
@@ -53,11 +47,8 @@
                 <div class="col-md-1">
                     <p class="nav-link"> <a href="#advanced">Advanced</a> </p>
                 </div>
-                <div class="col-md-2">
-                    <p class="nav-link"> <a href="#heatmap">Heat map</a> </p>
-                </div>
-                <div class="col-md-3 col-md-offset-2">
-                    <select ng-model="selectedUser" class="form-control login" ng-options="opt as opt.name for opt in users">
+                <div class="col-md-3 col-md-offset-1">
+                    <select ng-model="selected_user" class="form-control login" ng-options="opt as opt.name for opt in login_users">
                     </select>
                 </div>
                 <div class="col-md-1">
@@ -84,9 +75,6 @@
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-route/angular-route.min.js"></script>
 
-    <!-- ================ANGULAR CUSTOM CORE================ -->
-    <script src="scripts/app.js"></script>
-
     <!-- ================ANGULAR PLUGINS================ -->
     <script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
     <script type="text/javascript" src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
@@ -95,20 +83,25 @@
     <script type="text/javascript" src="bower_components/d3/d3.js"></script>
     <script type="text/javascript" src="bower_components/cal-heatmap/cal-heatmap.js"></script>
     <script type="text/javascript" src="bower_components/angular-cal-heatmap-directive/dist/1.3.0/calHeatmap.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-toastr/dist/angular-toastr.min.js"></script>
+
+    <!-- ================ANGULAR CUSTOM CORE================ -->
+    <script src="scripts/app.js"></script>
+    <script type="text/javascript" src="scripts/routes.js"></script>
 
     <!-- ================CONTROLLERS================ -->
-    <script type="text/javascript" src="scripts/calendar.controller.js"></script>
-    <script type="text/javascript" src="scripts/main.controller.js"></script>
-    <script type="text/javascript" src="scripts/filter.controller.js"></script>
-    <script type="text/javascript" src="scripts/advanced.controller.js"></script>
-    <script type="text/javascript" src="scripts/heatmap.controller.js"></script>
-    <script type="text/javascript" src="scripts/routes.js"></script>
-    <script type="text/javascript" src="scripts/filters.service.js"></script>
-
+    <script type="text/javascript" src="scripts/controllers/calendar.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/main.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/filter.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/advanced.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/heatmap.controller.js"></script>
 
     <!-- ================SERVICES================ -->
-    <script type="text/javascript" src="scripts/bookings.service.js"></script>
-    <script type="text/javascript" src="scripts/database.service.js"></script>
+    <script type="text/javascript" src="scripts/services/filters.service.js"></script>
+    <script type="text/javascript" src="scripts/services/bookings.service.js"></script>
+    <script type="text/javascript" src="scripts/services/database.service.js"></script>
+    <script type="text/javascript" src="scripts/services/notify.service.js"></script>
+    <script type="text/javascript" src="scripts/services/advancedfilters.service.js"></script>
 
 </body>
 

@@ -1,47 +1,87 @@
-# Timetabling
 
-A basic timetabling system built upon AngularJS and SASS for presenting user availability and dates
+__Author__: Louis John Bichard
 
-## Overview
+A basic timetabling system built upon AngularJS and SASS for presenting user availability and dates for Mudano as part of second stage recruitment process. 
 
-- Has been tested only in 'modern browsers'
-- Not 100% mobile/tablet/small device optimised
-- Colour codes are not taking into account colourblind users, better choices could be made for improved accessibility
-- Alerts/Prompts are used, but these could be removed in future with modals or something more aesthetic if required
-- Colour is quite heavily used in the UI, a good future improvement would be divide the cells into AM and PM, however this is not possible easily with the current used plugin and would require more work than is in scope for this taks
-- The system has dragging functionality for events, however this has not been added due to the added complexity, but could be a future extension so that bookings can be made easily for long periods of time
-- No unit tests are provided, so functionality will be largely unstable
-- There is no 'updating' of tasks, they are only created or destroyed, this is how the 'update' functionality is provided. 
-- No admin rights are provided, all users can add for all users, and all users can remove all other users events
-- User selection could be improved by addition of groups, i.e users grouped into developers, managers, etc. 
-- Most of the code is built into 1 controller, this however would be better broken down where possible into separate services/directives, however for a smaller project this seems acceptable (uncertainty of requirements make this slightly difficult) as 1 controller is easier to maintain while requirements are addressed.
-- Animations have been added for transitions on load and when logging in
+# Notes
 
-## Requirements
+- Calendar interface not tested for larger user sets
+- Interface not mobile friendly
+- Totals on the calendar view are restricted to the only viewed employees and are displayed in half units, this however is up for debate depending on the preferences of the end users
 
-✓ __The user should be able to mark time as “Present”, “Vacation”, “Public Holiday”, “Training”__ 'Present' is assumed default.
+# Limitations & Future improvements
 
-✓ __All categories other than “Present” are classified as Absent__
+The following is a list of known issues with the requirements themselves, the interface limitations and future suggestions and basic notes on potential for bugs or improvements in the system to demonstrate thought processes throughout the process.
 
-✓ __Weekends should be ignored by the system (not displayed and no classification should be given)__
+##### Dragging Angular templating rendering issue on selection
+Due to the way Angular is re-rending the template when a user makes a dragged selection sometimes dragged selections are not inputted properly, this could be fixed by caching all the changes temporarily and then updating the model only once
 
-✓ __The system should work on units of half days__ Each item added is added as either AM or PM. This is denoted through colours defined in the colour key. At the time of writing, blue denotes AM and pink denotes PM. The system also validates against this. 
+##### Public holiday booking mechanism
+Adding public holidays was discussed with Sandhi to be across all users within the organisation, not just the particular individual. This however is conflicted with the data set, as individual records seem to be added for all users. This would be an issue in multiple scenarios such as: 
+- Adding new users to the system 
+- Adding public holidays be added to the current view (i.e just the filtered users) or to the entire dataset of users (this could be confusing for the user)
+- Would be restricting withing the context of multiple localities for working.Offshore teams may require different public holiday structures. 
 
-✓ __The default for days should be “Present” other than Public Holidays__
+##### Lack of ability to book weekends
+- Some offshore workers may well work weekends, for instance, some oversea's public holidays are more generous, and this would ned to be made up for on other days to be inline with UK based working hours and contracts. 
 
-✓ __The user should be able to see the records for other team members as they make their selections__ Can be seen and removed/added through the panel on the left
+##### Use of datatables in advanced section
+The advanced section merely returns a large lumped HTML table dataset, having sortable and powerful table functionality would help here
 
-✓ __The interface should be designed to be able to deal with projects with up to 40 people__
+##### Use of printing section in advanced reports area
+The advanced reports area could be improved with the addition of print functionality.
 
-✓ __The interface should highlight clashes with other users.__ This is denoted by a red mark to the right of the event
+##### Client side validation on the reports area
+As the forms are generated dynamically, greater adoption of fields such as date popout selectors, and better use of client side validation would improve the functionality. The validation could be defined as regular expressions potetntially that are passed into the field via a directive or purely through Angulars validaiton mechanisms.
 
-✓ __The interface should deal with a period of up to 12 months in the future__
+# Features
 
-✓ __It is not required that all 12 months must be shown at the same time and the interface should be optimised for the most common use case (Vacation and training to be added within the next 3 months)__ 1 month shown at a time, this was assumed optimal for screen sizings etc.
+## Filters
 
-✓ __User can select a relevant time to book absence/User can input absence__ Selected by clicking on dates
+- Demo filters are added to show how a user may filter just their own timetable, or a team if necessary. This could be done through a name/userid contains, equals saved filter. 
 
-✓__User can get feedback on clashes of input absence (can be automatic if required)__ 
+The filters are achieved through an object of operators provided in the filters service, where simply the value of each records property that is chosen (e.g name) is compared against the value provided in the filter query.
 
-✓__Save (can be automatic if required)__ Automatic saving
+In future this would be abstracted away into API's.
+    
+    this.operators = {
+        '+': function(a, b) {
+            return a + b;
+        },
 
+
+## Advanced filters
+
+- Advanced filters are easily constructed on the front end.
+- The advanced filter service has an array under the 'constant' property 'FILTERS' and has API methods for retrieving its data
+
+To extend the current filter functionality, extend the FILTERS array with 
+
+* __Name__ (string): Appears in the drop down on the interface
+
+* __Fields__ (object): Fields with object properties:
+    * __label__: Is displayed beside the input box in the interface
+    * __type__: type of input box in the interface
+    * __name__: The value passed to the callback function _F_ for use in manipulating the data set.
+    
+* __F__ (callback function): A callback function that must return an object with properties __data__, __total__ and __keys__, where data is the data to be displayed, keys is the columns in the result table and total is the result records. and is provided with function provided with arguments:
+    *  __fields__: The parameters fields (an object with the field values as defined earlier as 'name' in the field object)
+    *  __result__: The records to filter
+
+            {
+                'name': 'Some filter name' 
+                'fields': [{
+                    'label': 'year (YYYY)',
+                    'name': 'year',
+                    'type': 'number'
+                }],
+                'F': function(fields, records) {
+                    // SOME FILTER FUNCTION HERE
+                    return {
+                        data: data,
+                        total: total,
+                        keys: ['name', 'days booked this year'],
+                    };
+
+                }
+            }

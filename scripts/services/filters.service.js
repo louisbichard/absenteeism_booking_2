@@ -49,9 +49,6 @@ APP.service("filterService", function(bookingService) {
 
             }, false);
         },
-        'date-between': function(a, b) {
-            return a.indexOf(b) > -1;
-        },
         '<=': function(a, b) {
             return a <= b;
         },

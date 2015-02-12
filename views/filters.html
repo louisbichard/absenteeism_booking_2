@@ -1,25 +1,50 @@
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4">
+        <div class="widget animated fadeIn">
+            <div class="widget-header">
+                <p> Manage filters </p>
+            </div>
+            <div class="widget-body">
+                <table class="table">
+                    <thead>
+                        <th ng-repeat="test in ['Name', 'Actions' ]">
+                            {{test}}
+                        </th>
+                    </thead>
+                    <tr ng-repeat="filter in filters.get()">
+                        <td>{{filter.name}}</td>
+                        <td>
+                            <button class="btn btn-danger" ng-click="filters.delete($index)">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
         <div class="widget animated fadeIn">
             <div class="widget-header">
                 <p> Create filters </p>
             </div>
             <div class="widget-body">
-                <br>
-                <form ng-submit="saveFilter()">
+                <form ng-submit="testFilter()">
                     <div class="row">
                         <div class="col-md-8">
                             <label>Filter name</label>
                             <input required class="form-control" ng-model="expression.name"></input>
                         </div>
+
                         <div class="col-md-2">
                             <label></label>
-                            <a ng-click="submitFilter()" class="btn btn-block btn-primary ">Test
-                            </a>
+                            <button type="submit" class="btn btn-block btn-success ">Test</button>
                         </div>
                         <div class="col-md-2">
                             <label></label>
-                            <button type="submit" class="btn btn-block btn-success "><i class="fa fa-save"></i>&nbsp;Save</button>
+                            <a ng-click="filters.save()" class="btn btn-block btn-primary ">
+                                <i class="fa fa-save"></i>&nbsp;Save
+                            </a>
                         </div>
                     </div>
                     <br>
@@ -35,7 +60,7 @@
                         </div>
                         <div class="col-md-4">
                             <label>Operator</label>
-                            <select required ng-model="expression.operator" class="form-control" ng-options="operator as operator for operator in operators">
+                            <select required ng-model="expression.operator" class="form-control" ng-options="operator as operator for operator in setup.operators">
                                 <option value="<=">&lt;=</option>
                                 <option value=">=">&gt;=</option>
                                 <option value="contains">contains</option>
@@ -52,9 +77,9 @@
         </div>
 
         <div class="widget" ng-show="results.data">
-            <div class="widget-body">
+            <div class="widget-body scroll-large">
                 <div class="row">
-                    Results ({{results.total}})
+                    <p class="text-center"> Results ({{results.total}}) </p>
                     <table class="table">
                         <thead>
                             <th>userid</th>

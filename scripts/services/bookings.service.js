@@ -1,10 +1,28 @@
 /**
  * CRUD SERVICE
  */
-APP.service("bookingService", function(databaseService) {
+APP.service("bookingService", function(databaseService, $rootScope) {
 
     var formatDatabase = function(curr, index) {
         return curr;
+    };
+
+    this.selected_user = {
+        "set": function(user) {
+            // ENSURE ONLY ACCESS THROUGH THIS FUNCTION
+            this.USER = user;
+            // BROAD CAST THE UPDATE TO OTHER CONTROLLERS
+            $rootScope.$broadcast('user-changed');
+        },
+        "get": function() {
+            return this.USER;
+        },
+        // DEFAULT USER, ARTIFIAL PRIVATE CONSTANT WITH PRIVATE SCOPE
+        "USER": {
+            "userid": 8,
+            "name": "Edward H. Temme",
+            "initials": "BD"
+        }
     };
 
     // READ

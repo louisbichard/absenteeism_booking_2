@@ -1,4 +1,4 @@
-APP.controller('calendarController', function($scope, bookingService, filterService) {
+APP.controller('calendarController', function($scope, bookingService, filterService, $rootScope) {
 
     $scope.bookings_by_date = [];
 
@@ -7,11 +7,12 @@ APP.controller('calendarController', function($scope, bookingService, filterServ
     $scope.filters = filterService.filters;
 
     // TODO: JUST AN EXAMPLE, DELETE THIS EVENTUALLY
-    $scope.selectedUser = {
-        "userid": 8,
-        "name": "Edward H. Temme",
-        "initials": "BD"
-    };
+
+    $scope.$on('user-changed', function(event, args) {
+        $scope.selected_user = bookingService.selected_user.get();
+    });
+
+    $scope.selected_user = bookingService.selected_user.get();
 
     $scope.init = function() {
         var theFilter;
@@ -41,7 +42,7 @@ APP.controller('calendarController', function($scope, bookingService, filterServ
 
         $scope.bookings_by_date_current_user = _.chain(bookingService.read.formatted())
             .filter({
-                userid: $scope.selectedUser.userid
+                userid: $scope.selected_user.userid
             })
             .groupBy('date').value();
 
@@ -63,30 +64,27 @@ APP.controller('calendarController', function($scope, bookingService, filterServ
     };
 
     $scope.addBooking = function(name, date, unit, elem, event) {
-        // TODO: SORT THIS OUT, IT'S A LITTLE HACKY
-        var css_classes = event.currentTarget.className;
 
-        // TODO: CONVERT TO REGEX
-        var has_am_booking = css_classes.indexOf('AM');
-        var has_pm_booking = css_classes.indexOf('PM');
+        // NOTE: THIS REGEX, AND CLASS BASED IMPLEMENTATION PROBABLY NOT THE BEST, I WOULD CHANGE THIS IN FUTURE GIVEN CHANCE
+        var has_booking = event.currentTarget.className.match(/value-P|value-V|value-T/g);
+        // NOTE: GET VALUE LETTER, AGAIN A LITTLE HACKY
+        var booking_value = has_booking ? has_booking[0].split('value-')[1] : false;
         var user_clicked = (event.which === 1);
 
-        var data = {
+        // CONSTRUCT RECORD TO DELETE OR ADD
+        var user = _.pick($scope.selected_user, ['name', 'userid']);
+        var booking_details = _.extend(user, {
             "date": date,
             "unit": unit,
             // TODO: REPLACE WITHOUT HARDCODED VALUE
-            "value": $scope.selected_unit
-        };
+            "value": booking_value || $scope.selected_unit
+        });
 
-        var user = _.pick($scope.selectedUser, ['name', 'userid']);
-
-        var booking_to_create = _.extend(user, data);
-
-        if (user_clicked && (has_am_booking > -1 || has_pm_booking > -1)) {
-            bookingService.delete(booking_to_create);
+        if (user_clicked && has_booking) {
+            bookingService.delete(booking_details);
             $scope.init();
         } else if (user_clicked) {
-            bookingService.create(booking_to_create);
+            bookingService.create(booking_details);
             $scope.init();
         }
     };

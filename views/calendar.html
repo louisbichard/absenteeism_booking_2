@@ -10,19 +10,26 @@
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <label> Unit </label>
+                        <label>Unit</label>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p class="value-V">
+                                    <!-- ng-class="{'radio-selected': selected_unit === 'V'}"> -->
+                                    <input type="radio" ng-model="selected_unit" value="V"> Vacation </input>
+                                </p>
 
-                        <p class="value-V">
-                            <!-- ng-class="{'radio-selected': selected_unit === 'V'}"> -->
-                            <input type="radio" ng-model="selected_unit" value="V"> Vacation </input>
-                        </p>
-                        <p class="value-P">
-                            <input type="radio" ng-model="selected_unit" value="P"> Public Holiday </input>
-                        </p>
-                        <p class="value-T">
-                            <input type="radio" ng-model="selected_unit" value="T"> T </input>
-                        </p>
-
+                            </div>
+                            <div class="col-md-4">
+                                <p class="value-P">
+                                    <input type="radio" ng-model="selected_unit" value="P"> Public Holiday </input>
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="value-T">
+                                    <input type="radio" ng-model="selected_unit" value="T"> Training </input>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -32,7 +39,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div ng-hide="!selectedUser">
+        <div ng-hide="!selected_user">
             <div class="widget  animated fadeIn">
                 <div class="widget-body scroll-large calendar">
                     <br>
@@ -40,8 +47,8 @@
                         <div class="col-md-3">
                             <table class="table unselectable">
                                 <thead>
-                                    <th>
-                                        <p class="text-center">Date</p>
+                                    <th class="text-center">
+                                        <p class="text-center"> Date </p>
                                     </th>
                                     <th class="text-center">
                                         <p class="text-center"> Your bookings </p>
@@ -51,11 +58,11 @@
                                     <tr ng-repeat="date in demo_dates" ng-class="{endofweek: isMonday(date)}">
                                         <td class="date-of-booking text-center">{{date}}</td>
                                         <td class="date-cell date-user">
-                                            <span ng-repeat="unit in ['AM', 'PM']" ng-mouseOver="addBooking(  selectedUser.name, date, unit, this, $event )" ng-mousedown="addBooking(  selectedUser.name, date, unit, this, $event )" ng-class="
+                                            <span ng-repeat="unit in ['AM', 'PM']" ng-mouseOver="addBooking(  selected_user.name, date, unit, this, $event )" ng-mousedown="addBooking(  selected_user.name, date, unit, this, $event )" ng-class="
                                             {
-                                            'value-V': cellHasBooking(selectedUser.name, bookings_by_date_current_user[date], unit, true) === 'V',
-                                            'value-T': cellHasBooking(selectedUser.name, bookings_by_date_current_user[date], unit, true) === 'T',
-                                            'value-P': cellHasBooking(selectedUser.name, bookings_by_date_current_user[date], unit, true) === 'P'
+                                            'value-V': cellHasBooking(selected_user.name, bookings_by_date_current_user[date], unit, true) === 'V',
+                                            'value-T': cellHasBooking(selected_user.name, bookings_by_date_current_user[date], unit, true) === 'T',
+                                            'value-P': cellHasBooking(selected_user.name, bookings_by_date_current_user[date], unit, true) === 'P'
                                             }" />
                                         </td>
                                     </tr>
@@ -66,12 +73,17 @@
                         <div class="col-md-9">
                             <table class="table unselectable">
                                 <thead>
+                                    <th>
+                                        <p class="text-center">Total</p>
+                                    </th>
                                     <th ng-repeat="user in users">
                                         <p tooltip="{{user.name}}" class="text-center">{{user.initials}}</p>
                                     </th>
+
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="date in demo_dates" ng-class="{endofweek: isMonday(date)}">
+                                        <td class="date-of-booking text-center">{{bookings_by_date[date].length / 2 || 0 }}</td>
                                         <td class="date-cell" ng-repeat="blah in users">
 
 
@@ -105,7 +117,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div ng-hide="selectedUser">
+        <div ng-hide="selected_user">
             <div class="widget animated fadeIn">
                 <div class="widget-body">
                     <h3 class="text-center"> Please login to begin </h3>

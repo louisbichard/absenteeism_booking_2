@@ -79,6 +79,10 @@ body {
         }
     }
 }
+.scroll-small {
+    overflow-y: auto;
+    height: 400px;
+}
 .scroll-large {
     overflow-y: auto;
     height: 800px;
